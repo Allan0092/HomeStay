@@ -1,2 +1,3 @@
-package com.example.homestay.entity;public class User {
+package com.example.homestay.entity;
+public class User {
 }
