@@ -1,6 +1,6 @@
 package com.example.homestay.Security;
 
-import com.online_cake_order.online_cake_order.service.impl.UserDetailServiceImpl;
+import com.example.homestay.service.impl.UserDetailServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

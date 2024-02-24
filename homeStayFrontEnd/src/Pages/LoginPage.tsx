@@ -9,6 +9,7 @@ function LoginPage() {
     email: string;
     password: string;
   }
+  storeAuthToken(null);
 
   const [formData, setFormData] = useState<UserCredentials>({
     email: "",

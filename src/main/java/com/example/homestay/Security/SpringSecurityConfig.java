@@ -1,7 +1,7 @@
 package com.example.homestay.Security;
 
-import com.online_cake_order.online_cake_order.config.PasswordEncoderUtil;
-import com.online_cake_order.online_cake_order.service.impl.UserDetailServiceImpl;
+import com.example.homestay.config.PasswordEncoderUtil;
+import com.example.homestay.service.impl.UserDetailServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,6 +43,8 @@ public class SpringSecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/authenticate")
+                .permitAll()
+                .requestMatchers("/user/save")
                 .permitAll()
                 .requestMatchers("/Item/**")
                 .hasAuthority("admin")

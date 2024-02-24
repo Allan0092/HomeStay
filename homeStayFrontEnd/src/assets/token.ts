@@ -1,6 +1,10 @@
 // Function to store JWT token in LocalStorage
-export const storeAuthToken = (token: string) => {
-  localStorage.setItem('jwtToken', token);
+export const storeAuthToken = (token: string | null) => {
+  if (token === null){
+    localStorage.removeItem('jwtToken')
+  }else{
+    localStorage.setItem('jwtToken', token);
+  }
 };
 
 // Function to retrieve JWT token from LocalStorage

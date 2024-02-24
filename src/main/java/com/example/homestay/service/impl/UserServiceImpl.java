@@ -6,6 +6,7 @@ import com.example.homestay.entity.User;
 import com.example.homestay.repository.UserRepository;
 import com.example.homestay.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +26,12 @@ public class UserServiceImpl implements UserService {
         user.setEmail(userDTO.getEmail());
         user.setPassword(PasswordEncoderUtil.getInstance().encode(userDTO.getPassword()));
 
-        userRepository.save(user);
+        try {
+            userRepository.save(user);
+        }
+        catch (DataIntegrityViolationException e){
+            return "Email already Exists";
+        }
         return "Registration success";
     }
 
