@@ -15,15 +15,14 @@ import java.util.Optional;
 public class RoomController {
     private final RoomService roomService;
 
-
     @GetMapping("/data")
     public String getData(){
         return "data recieved";
     }
 
     @PostMapping("/save")
-    public String createData(@RequestBody RoomDTO userDTO){
-        return roomService.save(userDTO);
+    public String createData(@ModelAttribute RoomDTO roomDTO){
+        return roomService.save(roomDTO);
     }
 
     @GetMapping("/getAll")

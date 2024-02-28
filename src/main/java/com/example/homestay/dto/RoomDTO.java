@@ -1,6 +1,5 @@
 package com.example.homestay.dto;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,5 +21,5 @@ public class RoomDTO {
     @NotNull
     Float price;
     @NotNull
-    Boolean Available;
+    Boolean available;
 }

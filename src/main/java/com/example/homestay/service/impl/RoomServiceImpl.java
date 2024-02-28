@@ -16,7 +16,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class RoomServiceImpl implements RoomService {
     private final RoomRepository roomRepository;
-    private final String imageFilePath = "http://localhost:8087/";
+    private final String imageFilePath = "C:\\Users\\allan\\IdeaProjects\\HomeStay\\src\\main\\resources\\Images\\";
     @Override
     public String save(RoomDTO roomDTO) {
         Room room= Room.builder()
@@ -30,12 +30,13 @@ public class RoomServiceImpl implements RoomService {
 
         // for product Image
         MultipartFile multipartFile = roomDTO.getImage();
-        String filePath = imageFilePath+multipartFile+multipartFile.getOriginalFilename();
+        String filePath = imageFilePath+multipartFile.getOriginalFilename();
         try{
             multipartFile.transferTo(new File(filePath));
+            room.setImagePath(multipartFile.getOriginalFilename());
         }
         catch (Exception e){
-            System.out.println("Error saving Image:"+e.toString());
+            System.out.println("Error saving Image:"+e);
             return e.toString();
         }
 
