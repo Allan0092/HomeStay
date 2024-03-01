@@ -2,9 +2,15 @@ package com.example.homestay.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import lombok.*;
 
 import java.util.Date;
 
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "booking_request")
 public class BookingRequest {

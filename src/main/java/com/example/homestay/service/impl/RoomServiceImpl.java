@@ -20,7 +20,6 @@ import java.util.ArrayList;
 public class RoomServiceImpl implements RoomService {
     private final RoomRepository roomRepository;
     private final String imageFilePath = "C:\\Users\\allan\\IdeaProjects\\HomeStay\\src\\main\\resources\\Images\\";
-    private final String frontEndImagePath = "C:\\Users\\allan\\IdeaProjects\\HomeStay\\homeStayFrontEnd\\src\\assets\\Images";
     @Override
     public String save(RoomDTO roomDTO) {
         Room room= Room.builder()
@@ -35,10 +34,8 @@ public class RoomServiceImpl implements RoomService {
         // for product Image
         MultipartFile multipartFile = roomDTO.getImage();
         String filePath = imageFilePath+multipartFile.getOriginalFilename();
-        String filePath2 =frontEndImagePath+multipartFile.getOriginalFilename();
         try{
             multipartFile.transferTo(new File(filePath));
-            multipartFile.transferTo(new File(filePath2));
             room.setImagePath(multipartFile.getOriginalFilename());
         }
         catch (Exception e){

@@ -2,7 +2,6 @@ import axios, { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import AdminPanel from "../Pages/AdminPanel";
-import Erke from "../assets/Images/Erke.jpg";
 
 interface Room {
   roomNo: number;
@@ -36,11 +35,16 @@ const RoomList: React.FC = () => {
         <div className="flex justify-center">
           <h2 className="text-2xl font-bold mb-4">Room List</h2>
         </div>
+        <div className="flex justify-end">
+          <button className="px-5 mb-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded-lg">
+            Add Rooms
+          </button>
+        </div>
         <table className="w-full mx-auto rounded-lg shadow-md overflow-x-auto">
           <thead className="bg-gray-700 text-white px-4 py-2">
             <tr>
               <th className="text-left">Image</th>
-              <th className="text-left">Room Number</th>
+              <th className="text-center">Room Number</th>
               <th className="text-left">Description</th>
               <th className="text-left">Capacity</th>
               <th className="text-left">Price</th>
@@ -57,13 +61,12 @@ const RoomList: React.FC = () => {
               >
                 <td className="w-16">
                   <img
-                    // src={`../assets/Images/${room.imagePath}`}
                     src={`http://localhost:8087/room/getImageByName/${room.roomNo}`}
                     alt="image"
                     className="rounded-lg w-full h-full object-cover"
                   />
                 </td>
-                <td className="text-left">{room.roomNo}</td>
+                <td className="text-center">{room.roomNo}</td>
                 <td className="text-left">{room.description}</td>
                 <td className="text-left">{room.capacity}</td>
                 <td className="text-left">{room.price}</td>
