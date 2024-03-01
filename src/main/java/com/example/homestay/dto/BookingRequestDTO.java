@@ -14,7 +14,7 @@ public class BookingRequestDTO {
     Integer id;
     String customer_email;
     Integer roomNo;
-    Date dateOfArrival;
+    String dateOfArrival;
     Integer NumberOfDays;
     Float total;
     BookingStatus status;

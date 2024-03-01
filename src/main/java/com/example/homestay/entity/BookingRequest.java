@@ -27,7 +27,7 @@ public class BookingRequest {
     Integer roomNo;
 
     @Column(name = "date_of_arrival")
-    Date dateOfArrival;
+    String dateOfArrival;
 
     @Column(name = "number_of_days")
     Integer numberOfDays;

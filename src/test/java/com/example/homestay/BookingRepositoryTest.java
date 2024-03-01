@@ -30,7 +30,7 @@ public class BookingRepositoryTest {
         BookingRequest bookingRequest = BookingRequest.builder()
                 .customerEmail("test@email.com")
                 .roomNo(999)
-                .dateOfArrival(new Date())
+                .dateOfArrival("03-07-2023")
                 .numberOfDays(5)
                 .total(15000F)
                 .status(BookingStatus.PENDING)
