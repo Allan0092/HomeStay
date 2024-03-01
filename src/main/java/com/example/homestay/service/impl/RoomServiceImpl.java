@@ -47,7 +47,16 @@ public class RoomServiceImpl implements RoomService {
         return "Room saved successfully";
     }
 
-
+    @Override
+    public String changeAvailable(Integer roomNo) {
+        Optional<Room> room = roomRepository.findById(roomNo);
+        if (room.isEmpty()){
+            return null;
+        }
+        room.get().setAvailable(!room.get().getAvailable());
+        roomRepository.save(room.get());
+        return "availability changes";
+    }
 
     @Override
     public List<Room> getAll() {

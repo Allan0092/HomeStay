@@ -8,6 +8,8 @@ import java.util.Optional;
 
 public interface RoomService {
     String save(RoomDTO roomDTO);
+
+    String changeAvailable(Integer roomNo);
     List<Room> getAll();
 
     byte[] getImage(Integer roomNum);

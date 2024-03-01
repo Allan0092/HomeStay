@@ -2,6 +2,8 @@ import axios, { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import AdminPanel from "../Pages/AdminPanel";
+import { getAuthToken } from "../assets/token";
+import { useNavigate } from "react-router-dom";
 
 interface Room {
   roomNo: number;
@@ -28,6 +30,50 @@ const RoomList: React.FC = () => {
     fetchData();
   }, []);
 
+  const handleDeleteRoom = async (room: Room) => {
+    console.log("Room to be deleted: " + room);
+    const config = {
+      headers: { Authorization: `Bearer ${getAuthToken()}` },
+    };
+    try {
+      const response = await axios.delete(
+        `http://localhost:8087/room/deleteById/${room.roomNo}`,
+        config
+      );
+
+      if (response.status === 200) {
+        toast.success("Room Deleted");
+      } else {
+        toast.error("An error occurred while deleting room");
+      }
+    } catch (error: any) {
+      console.error(error);
+      toast.error("An error occurred while deleting room");
+    }
+  };
+
+  const handleAvailableRoom = async (room: Room) => {
+    console.log("Room to be updated: " + room);
+    const config = {
+      headers: { Authorization: `Bearer ${getAuthToken()}` },
+    };
+    try {
+      const response = await axios.post(
+        `http://localhost:8087/room/changeAvailable/${room.roomNo}`,
+        config
+      );
+
+      if (response.status === 200) {
+        toast.success("Room availability changed");
+      } else {
+        toast.error("An error occurred.");
+      }
+    } catch (error: any) {
+      console.error(error);
+      toast.error("An error occurred.");
+    }
+  };
+
   return (
     <>
       <AdminPanel />
@@ -49,8 +95,8 @@ const RoomList: React.FC = () => {
               <th className="text-left">Capacity</th>
               <th className="text-left">Price</th>
               <th className="text-left">Available</th>
-              <th> Edit </th>
-              <th> Delete</th>
+              <th>Edit</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -70,14 +116,34 @@ const RoomList: React.FC = () => {
                 <td className="text-left">{room.description}</td>
                 <td className="text-left">{room.capacity}</td>
                 <td className="text-left">{room.price}</td>
-                <td className="text-left">{room.available ? "Yes" : "No"}</td>
+                <td className="text-left">
+                  {/* Conditional rendering based on availability */}
+                  {room.available ? (
+                    <button
+                      onClick={() => handleAvailableRoom(room)}
+                      className="px-2 py-2 bg-green-500 hover:bg-green-700 text-white rounded-lg"
+                    >
+                      Yes
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => handleAvailableRoom(room)}
+                      className="px-2 py-2 bg-red-500 hover:bg-red-700 text-white rounded-lg"
+                    >
+                      No
+                    </button>
+                  )}
+                </td>
                 <td className="text-center">
                   <button className="px-2 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded-lg">
                     Edit
                   </button>
                 </td>
                 <td className="text-center">
-                  <button className="px-2 py-2 bg-red-500 hover:bg-red-700 text-white rounded-lg">
+                  <button
+                    onClick={() => handleDeleteRoom(room)}
+                    className="px-2 py-2 bg-red-500 hover:bg-red-700 text-white rounded-lg"
+                  >
                     Delete
                   </button>
                 </td>

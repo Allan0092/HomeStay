@@ -14,7 +14,6 @@ public class RoomDTO {
     Integer roomNo;
     @NotNull
     String description;
-    @NotNull
     MultipartFile image;
     @NotNull
     Integer capacity;

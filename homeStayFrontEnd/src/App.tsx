@@ -8,11 +8,16 @@ import RegistrationPage from "./Pages/RegistrationPage";
 import RoomList from "./Components/RoomList";
 import AdminDash from "./Components/AdminDash";
 import AddRoom from "./Components/AddRoom";
+import RoomsPage from "./Pages/RoomsPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
+  },
+  {
+    path: "/rooms",
+    element: <RoomsPage />,
   },
   {
     path: "/admin",

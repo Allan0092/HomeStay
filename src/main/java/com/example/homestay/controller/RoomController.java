@@ -46,6 +46,9 @@ public class RoomController {
                 .body(image);
     }
 
+    @PostMapping("/changeAvailable/{id}")
+    public String changeAvailable(@PathVariable("id") Integer roomNo){return roomService.changeAvailable(roomNo);}
+
     @GetMapping("/getById/{id}")
     public Optional<Room> getById(@PathVariable("id") Integer id){
         return roomService.getById(id);

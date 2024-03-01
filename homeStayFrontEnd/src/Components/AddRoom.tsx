@@ -18,8 +18,10 @@ function AddRoom() {
     price: 0,
     available: false,
   });
+
   const [productImage, setProductImage] = useState<File | null>(null);
   const [productImgPreview, setProductImgPreview] = useState<string>("");
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormValue((prevFormValue) => ({ ...prevFormValue, [name]: value }));
@@ -36,6 +38,11 @@ function AddRoom() {
       };
     }
   };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   return (
     <>
       <section className="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-20">
