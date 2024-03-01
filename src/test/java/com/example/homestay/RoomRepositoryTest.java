@@ -61,7 +61,7 @@ public class RoomRepositoryTest {
 
 
     @Test
-    @Order(5)
+    @Order(6)
     public void deleteById(){
         List<Room> rooms = roomRepository.findAll();
         roomRepository.deleteById(rooms.get(0).getRoomNo());

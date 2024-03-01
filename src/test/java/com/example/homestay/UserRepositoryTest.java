@@ -58,6 +58,13 @@ public class UserRepositoryTest {
 
     @Test
     @Order(5)
+    public void findByEmail(){
+        User user = userRepository.getUserByUsername("testuser@email.com").get();
+        Assertions.assertThat(user.getId()).isEqualTo(1400);
+    }
+
+    @Test
+    @Order(6)
     public void deleteById(){
         List<User> users = userRepository.findAll();
         userRepository.deleteById(users.get(0).getId());
