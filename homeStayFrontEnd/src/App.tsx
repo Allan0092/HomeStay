@@ -3,9 +3,10 @@ import { ToastContainer } from "react-toastify";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import HomePage from "./Pages/HomePage";
-import AdminPanel from "./Pages/AdminPanel";
 import LoginPage from "./Pages/LoginPage";
 import RegistrationPage from "./Pages/RegistrationPage";
+import RoomList from "./Components/RoomList";
+import AdminDash from "./Components/AdminDash";
 
 const router = createBrowserRouter([
   {
@@ -14,7 +15,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <AdminPanel />,
+    element: <AdminDash />,
   },
   {
     path: "/login",
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <RegistrationPage />,
+  },
+  {
+    path: "/admin/room",
+    element: <RoomList />,
   },
 ]);
 

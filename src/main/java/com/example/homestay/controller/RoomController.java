@@ -4,6 +4,9 @@ import com.example.homestay.dto.RoomDTO;
 import com.example.homestay.entity.Room;
 import com.example.homestay.service.RoomService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +31,19 @@ public class RoomController {
     @GetMapping("/getAll")
     public List<Room> getAllData(){
         return roomService.getAll();
+    }
+
+    @GetMapping("/getAllActive")
+    public List<Room> getAllActive(){
+        return roomService.getAllAvailable();
+    }
+
+    @GetMapping("/getImageByName/{roomNum}")
+    public ResponseEntity<?> getImageByName(@PathVariable("roomNum") Integer roomNum) {
+        byte[] image = roomService.getImage(roomNum);
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.valueOf("image/png"))
+                .body(image);
     }
 
     @GetMapping("/getById/{id}")

@@ -16,10 +16,10 @@ const user = {
   email: "allan1@email1.com",
 };
 const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Rooms", href: "#", current: false },
+  { name: "Dashboard", href: "/admin", current: false },
+  { name: "Rooms", href: "/admin/room", current: false },
   { name: "Queries", href: "#", current: false },
-  // { name: "Calendar", href: "#", current: false },
+  { name: "Users", href: "#", current: false },
   { name: "Reports", href: "#", current: false },
 ];
 const userNavigation = [{ name: "Sign out", href: "/login" }];
@@ -211,19 +211,6 @@ export default function AdminPanel() {
             </>
           )}
         </Disclosure>
-
-        <header className="bg-white shadow">
-          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-              Dashboard
-            </h1>
-          </div>
-        </header>
-        <main>
-          <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-            {/* Your content */}
-          </div>
-        </main>
       </div>
     </>
   );
