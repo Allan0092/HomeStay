@@ -15,16 +15,16 @@ export interface Room {
   available: boolean;
 }
 
-function AddRoom() {
+function EditRoom(room: Room) {
   const navigate = useNavigate();
 
   const [formValue, setFormValue] = useState<Room>({
-    roomNo: 100,
-    description: "",
+    roomNo: room.roomNo,
+    description: room.description,
     imagePath: "",
-    capacity: 1,
-    price: 1000,
-    available: true,
+    capacity: room.capacity,
+    price: room.price,
+    available: room.available,
   });
 
   const [imagePath, setImagePath] = useState<File | null>(null);
@@ -114,7 +114,7 @@ function AddRoom() {
                   type="number"
                   name="roomNo"
                   onChange={handleChange}
-                  defaultValue={100}
+                  defaultValue={room.roomNo}
                   className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                   required
                 />
@@ -132,7 +132,7 @@ function AddRoom() {
                   type="number"
                   name="price"
                   onChange={handleChange}
-                  defaultValue={1000}
+                  defaultValue={room.price}
                   className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                   required
                 />
@@ -141,13 +141,14 @@ function AddRoom() {
               <div>
                 <label
                   className="text-white dark:text-gray-200"
-                  htmlFor="passwordConfirmation"
+                  htmlFor="Available"
                 >
                   Available
                 </label>
                 <select
                   name="available"
                   onChange={handleChange}
+                  defaultValue={room.available ? "true" : "false"}
                   className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                 >
                   <option>true</option>
@@ -166,6 +167,7 @@ function AddRoom() {
                   id="capacity"
                   type="number"
                   name="capacity"
+                  defaultValue={room.capacity}
                   onChange={handleChange}
                   className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                   required
@@ -182,6 +184,7 @@ function AddRoom() {
                   id="textarea"
                   name="description"
                   onChange={handleChange}
+                  defaultValue={room.description}
                   className="block w-full px-4 py-10 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                   required
                 />
@@ -221,6 +224,7 @@ function AddRoom() {
                           height="5%"
                           type="file"
                           className="sr-only"
+                          defaultValue={`http://localhost:8087/room/getImageByName/${room.roomNo}`}
                           required
                         />
                       </label>
@@ -253,4 +257,4 @@ function AddRoom() {
     </>
   );
 }
-export default AddRoom;
+export default EditRoom;

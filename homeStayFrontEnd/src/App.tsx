@@ -7,8 +7,19 @@ import LoginPage from "./Pages/LoginPage";
 import RegistrationPage from "./Pages/RegistrationPage";
 import RoomList from "./Components/RoomList";
 import AdminDash from "./Components/AdminDash";
-import AddRoom from "./Components/AddRoom";
+import { Room, AddRoom } from "./Components/AddRoom";
 import RoomsPage from "./Pages/RoomsPage";
+import EditRoom from "./Components/EditRoom";
+import { useState } from "react";
+
+const room = useState<Room>({
+  roomNo: 100,
+  description: "",
+  imagePath: "",
+  capacity: 1,
+  price: 1000,
+  available: true,
+});
 
 const router = createBrowserRouter([
   {
@@ -38,6 +49,19 @@ const router = createBrowserRouter([
   {
     path: "/admin/addroom",
     element: <AddRoom />,
+  },
+  {
+    path: `/admin/edit-room/${room}`,
+    element: (
+      <EditRoom
+        roomNo={0}
+        description={""}
+        imagePath={""}
+        capacity={0}
+        price={0}
+        available={false}
+      />
+    ),
   },
 ]);
 

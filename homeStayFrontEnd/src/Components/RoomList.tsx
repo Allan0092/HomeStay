@@ -1,9 +1,11 @@
 import axios, { AxiosError } from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import AdminPanel from "../Pages/AdminPanel";
 import { getAuthToken } from "../assets/token";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Footer from "./FooterProps";
+import EditRoom from "./EditRoom";
 
 interface Room {
   roomNo: number;
@@ -17,6 +19,7 @@ interface Room {
 const RoomList: React.FC = () => {
   const [room, setRoomList] = useState<Room[]>([]);
   const [editableRoom, setEditableRoom] = useState<Room | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -83,7 +86,7 @@ const RoomList: React.FC = () => {
         </div>
         <div className="flex justify-end">
           <button className="px-5 mb-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded-lg">
-            Add Rooms
+            <Link to="/admin/addroom">Add Rooms</Link>
           </button>
         </div>
         <table className="w-full mx-auto rounded-lg shadow-md overflow-x-auto">
@@ -136,7 +139,7 @@ const RoomList: React.FC = () => {
                 </td>
                 <td className="text-center">
                   <button className="px-2 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded-lg">
-                    Edit
+                    <Link to="/admin/addroom">Edit</Link>
                   </button>
                 </td>
                 <td className="text-center">
@@ -152,6 +155,7 @@ const RoomList: React.FC = () => {
           </tbody>
         </table>
       </div>
+      <Footer />
     </>
   );
 };

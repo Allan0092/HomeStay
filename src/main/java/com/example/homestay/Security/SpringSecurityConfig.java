@@ -46,7 +46,7 @@ public class SpringSecurityConfig {
                 .permitAll()
                 .requestMatchers("/user/save","/**")
                 .permitAll()
-                .requestMatchers("room/getAll", "room/getById/", "room/getImageByName/")
+                .requestMatchers("room/getAll", "room/getById/", "room/getImageByName/", "room/getAllActive")
                 .permitAll()
                 .requestMatchers("/room/save/", "/room/deleteById/", "/room/changeAvailable/")
                 .hasAuthority("admin")
