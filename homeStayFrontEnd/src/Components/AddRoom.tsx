@@ -1,30 +1,40 @@
 import { useState } from "react";
+import { getAuthToken } from "../assets/token";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+export interface Room {
+  roomNo: number;
+  description: string;
+  imagePath: string;
+  capacity: number;
+  price: number;
+  available: boolean;
+}
 
 function AddRoom() {
-  interface Room {
-    roomNo: number;
-    description: string;
-    imagePath: string;
-    capacity: number;
-    price: number;
-    available: boolean;
-  }
+  const navigate = useNavigate();
 
   const [formValue, setFormValue] = useState<Room>({
-    roomNo: 0,
+    roomNo: 100,
     description: "",
     imagePath: "",
-    capacity: 0,
-    price: 0,
-    available: false,
+    capacity: 1,
+    price: 1000,
+    available: true,
   });
 
-  const [productImage, setProductImage] = useState<File | null>(null);
+  const [imagePath, setImagePath] = useState<File | null>(null);
   const [productImgPreview, setProductImgPreview] = useState<string>("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
     const { name, value } = e.target;
-    setFormValue((prevFormValue) => ({ ...prevFormValue, [name]: value }));
+    setFormValue((formValue) => ({ ...formValue, [name]: value }));
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,13 +44,49 @@ function AddRoom() {
       reader.readAsDataURL(file);
       reader.onloadend = () => {
         setProductImgPreview(reader.result as string);
-        setProductImage(file);
+        setImagePath(file);
       };
     }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    };
+    const { roomNo, description, capacity, price, available } = formValue;
+    const formData = new FormData();
+    formData.append("roomNo", roomNo);
+    formData.append("description", description);
+    formData.append("image", imagePath);
+    formData.append("capacity", capacity);
+    formData.append("price", price);
+    formData.append("available", available);
+
+    try {
+      const response = await axios.post(
+        `http://localhost:8087/room/save`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/file-data",
+            Authorization: `Bearer ${getAuthToken()}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        toast.success("Room availability changed");
+      } else {
+        toast.error("An error occurred.");
+      }
+    } catch (error: any) {
+      console.error(error);
+      toast.error("An error occurred.");
+    }
   };
 
   return (
@@ -49,7 +95,7 @@ function AddRoom() {
         <h1 className="text-xl font-bold text-white capitalize dark:text-white">
           Add Room
         </h1>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
             <div>
               <label className="text-white dark:text-gray-200" htmlFor="roomNo">
@@ -59,6 +105,7 @@ function AddRoom() {
                 id="roomNo"
                 type="number"
                 name="roomNo"
+                onChange={handleChange}
                 defaultValue={100}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                 required
@@ -73,6 +120,7 @@ function AddRoom() {
                 id="price"
                 type="number"
                 name="price"
+                onChange={handleChange}
                 defaultValue={1000}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                 required
@@ -88,6 +136,7 @@ function AddRoom() {
               </label>
               <select
                 name="available"
+                onChange={handleChange}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               >
                 <option>true</option>
@@ -106,6 +155,7 @@ function AddRoom() {
                 id="capacity"
                 type="number"
                 name="capacity"
+                onChange={handleChange}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                 required
               />
@@ -120,6 +170,7 @@ function AddRoom() {
               <textarea
                 id="textarea"
                 name="description"
+                onChange={handleChange}
                 className="block w-full px-4 py-10 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                 required
               />
@@ -153,6 +204,7 @@ function AddRoom() {
                       <input
                         id="file-upload"
                         name="imagePath"
+                        onChange={handleFileChange}
                         accept="image/*"
                         width="5%"
                         height="5%"
